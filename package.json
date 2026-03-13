@@ -1,0 +1,14 @@
+{
+    "name": "@luminalog/sdk-go",
+    "version": "1.0.0",
+    "description": "LuminaLog Go SDK Release Automation",
+    "private": true,
+    "devDependencies": {
+        "semantic-release": "^23.0.0",
+        "@semantic-release/github": "^10.0.0",
+        "@semantic-release/git": "^10.0.0",
+        "@semantic-release/changelog": "^6.0.0",
+        "@semantic-release/commit-analyzer": "^11.0.0",
+        "@semantic-release/release-notes-generator": "^12.0.0"
+    }
+}
