@@ -1,7 +1,3 @@
-module github.com/mohses777/luminalog-go
+module github.com/luminalog/sdk-go
 
 go 1.21
-
-require (
-// No external dependencies - uses only Go standard library
-)

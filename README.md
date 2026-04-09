@@ -2,10 +2,10 @@
   <h1>luminalog-go</h1>
   <p>Privacy-first logging with AI-powered debugging for Go</p>
   
-  [![Go Reference](https://pkg.go.dev/badge/github.com/moses/luminalog-platform/packages/sdk-go.svg)](https://pkg.go.dev/github.com/moses/luminalog-platform/packages/sdk-go)
-  [![Go Report Card](https://goreportcard.com/badge/github.com/moses/luminalog-platform/packages/sdk-go)](https://goreportcard.com/report/github.com/moses/luminalog-platform/packages/sdk-go)
+  [![Go Reference](https://pkg.go.dev/badge/github.com/luminalog/sdk-go.svg)](https://pkg.go.dev/github.com/luminalog/sdk-go)
+  [![Go Report Card](https://goreportcard.com/badge/github.com/luminalog/sdk-go)](https://goreportcard.com/report/github.com/luminalog/sdk-go)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![Go Version](https://img.shields.io/github/go-mod/go-version/moses/luminalog-platform)](https://golang.org)
+  [![Go Version](https://img.shields.io/github/go-mod/go-version/luminalog/sdk-go)](https://golang.org)
   
   <p>
     <a href="#installation">Installation</a> •
@@ -32,7 +32,7 @@
 ## Installation
 
 ```bash
-go get github.com/moses/luminalog-platform/packages/sdk-go
+go get github.com/luminalog/sdk-go
 ```
 
 ## Quick Start
@@ -42,7 +42,7 @@ package main
 
 import (
     "log"
-    "github.com/moses/luminalog-platform/packages/sdk-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 func main() {
@@ -106,7 +106,7 @@ LUMINALOG_API_KEY=your-api-key-here
 ```go
 import (
     "os"
-    "github.com/moses/luminalog-platform/packages/sdk-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 logger, err := luminalog.New(luminalog.Config{
@@ -234,7 +234,7 @@ package main
 import (
     "os"
     "github.com/gin-gonic/gin"
-    "github.com/moses/luminalog-platform/packages/sdk-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 func main() {
@@ -286,7 +286,7 @@ package main
 import (
     "os"
     "github.com/labstack/echo/v4"
-    "github.com/moses/luminalog-platform/packages/sdk-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 func main() {
@@ -336,7 +336,7 @@ package main
 import (
     "net/http"
     "os"
-    "github.com/mohses777/luminalog-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 func main() {
@@ -378,7 +378,7 @@ import (
     "context"
     "os"
     "google.golang.org/grpc"
-    "github.com/mohses777/luminalog-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 func main() {
@@ -428,7 +428,7 @@ import (
     "context"
     "os"
     "github.com/aws/aws-lambda-go/lambda"
-    "github.com/mohses777/luminalog-go/luminalog"
+    "github.com/luminalog/sdk-go/luminalog"
 )
 
 var logger *luminalog.Logger
@@ -477,7 +477,7 @@ func main() {
 
 ## Support
 
-- 🐛 [Report a Bug](https://github.com/mohses777/luminalog-go/issues)
+- 🐛 [Report a Bug](https://github.com/luminalog/sdk-go/issues)
 - 💬 [Discord Community](https://discord.gg/luminalog)
 - 📧 [Email Support](mailto:support@luminalog.cloud)
 - 📚 [Knowledge Base](https://luminalog.cloud/docs)
@@ -498,6 +498,6 @@ MIT © [LuminaLog Team](https://luminalog.cloud)
     <a href="https://luminalog.cloud">Website</a> •
     <a href="https://luminalog.cloud/docs">Docs</a> •
     <a href="https://twitter.com/luminalog">Twitter</a> •
-    <a href="https://github.com/mohses777/luminalog-go">GitHub</a>
+    <a href="https://github.com/luminalog/sdk-go">GitHub</a>
   </p>
 </div>

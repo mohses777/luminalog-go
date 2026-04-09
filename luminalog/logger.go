@@ -2,6 +2,7 @@ package luminalog
 
 import (
 	"bytes"
+	"crypto/rand"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -17,7 +19,7 @@ import (
 const (
 	DefaultEndpoint      = "https://api.luminalog.cloud/v1/logs"
 	DefaultBatchSize     = 100
-	MinBatchSize         = 50
+	MinBatchSize         = 1
 	MaxBatchSize         = 500
 	DefaultFlushInterval = 5 * time.Second
 )
@@ -26,8 +28,8 @@ type LogLevel string
 
 const (
 	LevelDebug LogLevel = "debug"
-	LevelInfo LogLevel = "info"
-	LevelWarn LogLevel = "warn"
+	LevelInfo  LogLevel = "info"
+	LevelWarn  LogLevel = "warn"
 	LevelError LogLevel = "error"
 	LevelFatal LogLevel = "fatal"
 	LevelPanic LogLevel = "panic"
@@ -98,6 +100,59 @@ type Logger struct {
 	logLevels   []LogLevel
 }
 
+// GenerateTraceID creates a UUID v4 string for trace correlation.
+func GenerateTraceID() string {
+	return generateUUIDv4()
+}
+
+// GenerateSpanID creates a UUID v4 string for span correlation.
+func GenerateSpanID() string {
+	return generateUUIDv4()
+}
+
+// GetTraceIDFromRequest extracts a trace ID from request headers.
+// Priority: x-trace-id, x-request-id, then W3C traceparent.
+func GetTraceIDFromRequest(req *http.Request) string {
+	if req != nil {
+		if traceID := req.Header.Get("x-trace-id"); traceID != "" {
+			return traceID
+		}
+		if requestID := req.Header.Get("x-request-id"); requestID != "" {
+			return requestID
+		}
+
+		if traceparent := req.Header.Get("traceparent"); traceparent != "" {
+			parts := strings.Split(traceparent, "-")
+			if len(parts) >= 2 && parts[1] != "" {
+				return parts[1]
+			}
+		}
+	}
+
+	return GenerateTraceID()
+}
+
+func generateUUIDv4() string {
+	b := make([]byte, 16)
+	if _, err := rand.Read(b); err != nil {
+		// Fallback to timestamp-based deterministic shape if RNG fails.
+		now := time.Now().UnixNano()
+		return fmt.Sprintf("%08x-%04x-4%03x-a%03x-%012x",
+			uint32(now), uint16(now>>32), uint16(now>>16)&0x0fff, uint16(now)&0x0fff, uint64(now))
+	}
+
+	b[6] = (b[6] & 0x0f) | 0x40
+	b[8] = (b[8] & 0x3f) | 0x80
+
+	return fmt.Sprintf("%08x-%04x-%04x-%04x-%012x",
+		uint32(b[0])<<24|uint32(b[1])<<16|uint32(b[2])<<8|uint32(b[3]),
+		uint16(b[4])<<8|uint16(b[5]),
+		uint16(b[6])<<8|uint16(b[7]),
+		uint16(b[8])<<8|uint16(b[9]),
+		uint64(b[10])<<40|uint64(b[11])<<32|uint64(b[12])<<24|uint64(b[13])<<16|uint64(b[14])<<8|uint64(b[15]),
+	)
+}
+
 func New(config Config) (*Logger, error) {
 	if config.APIKey == "" {
 		return nil, errors.New("luminalog: api_key is required")
@@ -109,7 +164,7 @@ func New(config Config) (*Logger, error) {
 	if config.BatchSize == 0 {
 		config.BatchSize = DefaultBatchSize
 	}
-	
+
 	// Enforce batch size limits
 	if config.BatchSize < MinBatchSize {
 		fmt.Printf("[LuminaLog] Warning: batchSize %d is below minimum %d. Using %d instead to optimize costs.\n",
@@ -120,7 +175,7 @@ func New(config Config) (*Logger, error) {
 			config.BatchSize, MaxBatchSize, MaxBatchSize)
 		config.BatchSize = MaxBatchSize
 	}
-	
+
 	if config.FlushInterval == 0 {
 		config.FlushInterval = DefaultFlushInterval
 	}
