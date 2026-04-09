@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/mohses777/luminalog-go/compare/v1.0.0...v1.1.0) (2026-04-09)
+
+
+### Features
+
+* **sdk:** add tracing helpers and align module path ([b1e8c2c](https://github.com/mohses777/luminalog-go/commit/b1e8c2c2a410b7b4e5e776ca197e585ec19528ac))
+
 # 1.0.0 (2026-03-13)
 
 
