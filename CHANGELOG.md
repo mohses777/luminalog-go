@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/mohses777/luminalog-go/compare/v1.1.0...v1.2.0) (2026-04-20)
+
+
+### Features
+
+* add local example app and dev endpoint ([ea31c3d](https://github.com/mohses777/luminalog-go/commit/ea31c3d60a26d75d1a9c2d921d1edeb9bac081f5))
+
 # [1.1.0](https://github.com/mohses777/luminalog-go/compare/v1.0.0...v1.1.0) (2026-04-09)
 
 
