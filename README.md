@@ -35,6 +35,10 @@
 go get github.com/luminalog/sdk-go
 ```
 
+## Example App
+
+A runnable local example lives in [examples/basic](./examples/basic).
+
 ## Quick Start
 
 ```go

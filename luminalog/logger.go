@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	DefaultEndpoint      = "https://api.luminalog.cloud/v1/logs"
+	DefaultEndpoint      = "https://api-dev.luminalog.cloud/v1/logs"
 	DefaultBatchSize     = 100
 	MinBatchSize         = 1
 	MaxBatchSize         = 500
